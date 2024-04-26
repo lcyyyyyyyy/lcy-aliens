@@ -1,12 +1,22 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Image from "next/image"
+import styles from "./page.module.css"
 
-export default function Home() {
+import { Client } from '@notionhq/client'
+
+import { prefix } from '../utils/prefix'
+
+export default async function Home() {
+  const notion = new Client({ auth: process.env.NOTION_TOKEN })
+  const pages = await notion.databases.query({ database_id: process.env.NOTION_DATABASE_ID! })
+
+  // console.log(pages.results[0].properties.images.files)
+
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Get started by editing&nbsp;
+          Get started by editing&nbsp
           <code className={styles.code}>src/app/page.tsx</code>
         </p>
         <div>
@@ -17,7 +27,7 @@ export default function Home() {
           >
             By{" "}
             <Image
-              src="/vercel.svg"
+              src={`${prefix}/vercel.svg`}
               alt="Vercel Logo"
               className={styles.vercelLogo}
               width={100}
@@ -31,7 +41,7 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/next.svg"
+          src={`${prefix}/next.svg`}
           alt="Next.js Logo"
           width={180}
           height={37}
@@ -47,7 +57,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Docs <span>-&gt;</span>
+            Docs <span>-&gt</span>
           </h2>
           <p>Find in-depth information about Next.js features and API.</p>
         </a>
@@ -59,9 +69,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Learn <span>-&gt;</span>
+            Learn <span>-&gt</span>
           </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
+          <p>Learn about Next.js in an interactive course with&nbspquizzes!</p>
         </a>
 
         <a
@@ -71,7 +81,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Templates <span>-&gt;</span>
+            Templates <span>-&gt</span>
           </h2>
           <p>Explore starter templates for Next.js.</p>
         </a>
@@ -83,7 +93,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Deploy <span>-&gt;</span>
+            Deploy <span>-&gt</span>
           </h2>
           <p>
             Instantly deploy your Next.js site to a shareable URL with Vercel.
@@ -91,5 +101,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  );
+  )
 }
