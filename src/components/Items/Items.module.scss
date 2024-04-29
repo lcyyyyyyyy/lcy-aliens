@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+}
+
+.item {
+  width: 20vw;
+  margin: 20px;
+}
+
+.image {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 100%;
+    display: block;
+    padding-bottom: 100%;
+    background-color: #d8e4d7;
+  }
+
+  img {
+    object-fit: cover;
+  }
+}

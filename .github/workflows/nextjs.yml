@@ -24,14 +24,13 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-env:
-  NEXT_PUBLIC_NOTION_TOKEN: ${{secrets.NEXT_PUBLIC_NOTION_TOKEN}}
-  NEXT_PUBLIC_NOTION_DATABASE_ID: ${{secrets.NEXT_PUBLIC_NOTION_DATABASE_ID}}
-
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_NOTION_TOKEN: ${{secrets.NEXT_PUBLIC_NOTION_TOKEN}}
+      NEXT_PUBLIC_NOTION_DATABASE_ID: ${{secrets.NEXT_PUBLIC_NOTION_DATABASE_ID}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
