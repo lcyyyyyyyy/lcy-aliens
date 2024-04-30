@@ -1,18 +1,27 @@
-'use client'
-
+// import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { Client } from '@notionhq/client'
+
 import styles from './Items.module.scss'
-import { useEffect } from 'react'
 
-interface props {
-  data: Array<object>
-}
+const Items = async () => {
+  const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_TOKEN })
+  const pages = await notion.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID! })
+  const data = pages.results ?? []
 
-const Items = (
-  {
-    data
-  }: props
-) => {
+  // const [data, setData] = useState([])
+
+  // const handleGetData = async () => {
+  //   const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_TOKEN })
+  //   const pages = await notion.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID! })
+
+  //   setData(pages.results ?? [])
+  // }
+
+  // useEffect(() => {
+  //   handleGetData()
+  // }, [])
+
   return (
     <div className={styles.wrapper}>
       {data.map((item: any) => {
