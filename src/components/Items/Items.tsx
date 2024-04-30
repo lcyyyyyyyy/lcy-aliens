@@ -6,19 +6,21 @@ import styles from './Items.module.scss'
 
 const Items = async () => {
   let data: any[] = []
+  const id = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID!
+  const token = process.env.NEXT_PUBLIC_NOTION_TOKEN
+
+  if (!id || !token) throw new Error('The secret keys are missing')
 
   try {
-    const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_TOKEN })
-    const pages = await notion.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID! })
+    const notion = new Client({ auth: token })
+    const pages = await notion.databases.query({ database_id: id })
     data = pages.results ?? []
   } catch (error) {
     console.log('-----error-----');
-    console.log(error.stack);
-    console.log(error.toString());
+    console.log(error);
+    // console.log(error.toString());
 
   }
-
-
 
   // const [data, setData] = useState([])
 
