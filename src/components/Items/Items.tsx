@@ -9,6 +9,11 @@ const Items = async () => {
   const pages = await notion.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID! })
   const data = pages.results ?? []
 
+  console.log('----log----');
+  console.log(process.env.NEXT_PUBLIC_NOTION_DATABASE_ID);
+  
+  
+
   // const [data, setData] = useState([])
 
   // const handleGetData = async () => {
