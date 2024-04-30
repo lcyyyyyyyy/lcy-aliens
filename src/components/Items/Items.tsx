@@ -13,7 +13,7 @@ const Items = async () => {
     data = pages.results ?? []
   } catch (error: unknown) {
     console.log('-----error-----');
-    console.log(error);
+    console.error(error.toString());
 
   }
 
