@@ -11,9 +11,10 @@ const Items = async () => {
     const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_TOKEN })
     const pages = await notion.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID! })
     data = pages.results ?? []
-  } catch (error: unknown) {
+  } catch (error) {
     console.log('-----error-----');
-    console.error(error.toString());
+    console.log(error.stack);
+    console.log(error.toString());
 
   }
 
