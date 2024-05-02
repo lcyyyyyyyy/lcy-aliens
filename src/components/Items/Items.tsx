@@ -9,7 +9,7 @@ const Items = async () => {
   const id = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID!
   const token = process.env.NEXT_PUBLIC_NOTION_TOKEN
 
-  if (!id || !token) throw new Error('The secret keys are missing')
+  if (!id || !token) console.log('The secret keys are missing')
 
   try {
     const notion = new Client({ auth: token })
