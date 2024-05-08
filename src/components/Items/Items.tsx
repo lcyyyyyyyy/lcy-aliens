@@ -1,44 +1,47 @@
-// import { useState, useEffect } from 'react'
+'use client'
+
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import Image from 'next/image'
-import { Client } from '@notionhq/client'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import styles from './Items.module.scss'
 
-const Items = async () => {
-  let data: any[] = []
-  const id = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID!
-  const token = process.env.NEXT_PUBLIC_NOTION_TOKEN
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
-  if (!id || !token) console.log('The secret keys are missing')
+interface props {
+  data: Array<object>
+}
 
-  try {
-    const notion = new Client({ auth: token })
-    const pages = await notion.databases.query({ database_id: id })
-    data = pages.results ?? []
-  } catch (error) {
-    console.log('-----error-----');
-    console.log(error);
-    // console.log(error.toString());
+const Items = ({
+  data
+}: props) => {
+  const container = useRef(null)
 
-  }
+  useGSAP(() => {
+    gsap.set(`.${styles.item} img`, {
+      scale: 1.1,
+      yPercent: -2.5
+    })
 
-  // const [data, setData] = useState([])
-
-  // const handleGetData = async () => {
-  //   const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_TOKEN })
-  //   const pages = await notion.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID! })
-
-  //   setData(pages.results ?? [])
-  // }
-
-  // useEffect(() => {
-  //   handleGetData()
-  // }, [])
+    gsap.to(`.${styles.item} img`, {
+      ease: 'none',
+      yPercent: 5,
+      scrollTrigger: {
+        scrub: true
+      }
+    })
+  }, { scope: container, dependencies: [data] })
 
   return (
-    <div className={styles.wrapper}>
+    <div ref={container} className={styles.wrapper}>
       {data.map((item: any) => {
-        const files = item.properties?.images?.files
+        const properties = item.properties
+        const tags = properties?.Tags?.multi_select
+        const name = item.properties?.Name?.title[0]?.text.content
+        const files = item.properties?.Images?.files
+        const price = properties?.Price?.number
 
         return (
           <div key={item.id} className={styles.item}>
@@ -52,7 +55,20 @@ const Items = async () => {
                 />
               }
             </div>
-            <p>{item.properties?.Name?.title[0]?.text.content}</p>
+
+            {/* Name */}
+            <p>{name}</p>
+
+            {/* Price */}
+            {
+              tags
+                .filter((tag: { name: string }) => { return tag.name !== 'Not for Sale' })
+                .map((tag: { id: string }) => {
+                  return (
+                    <p key={tag.id}>NT${price}</p>
+                  )
+                })
+            }
           </div>
         )
       })}
