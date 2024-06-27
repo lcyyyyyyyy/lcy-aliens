@@ -1,0 +1,45 @@
+.wrapper {
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  padding: 25px;
+  position: fixed;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.filter {
+  width: max-content;
+  height: max-content;
+  cursor: pointer;
+  padding: 1.5em 0 0.5em 0;
+  display: flex;
+  align-items: flex-end;
+
+  &:global {
+    &.active {
+      span {
+        color: #41ad2e;
+      }
+    }
+  }
+
+  p {
+    color: #000;
+    font-size: 2rem;
+  }
+
+  span {
+    color: #000;
+    font-size: 6rem;
+    transition: color 0.3s;
+  }
+}
+
+.title {
+  color: #000;
+  font-size: 6rem;
+}

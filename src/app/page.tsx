@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client'
 
-import Items from '@/components/Items/Items'
+import Content from '@/components/Content/Content'
 
 const Home = async () => {
   let data: any[] = []
@@ -19,9 +19,7 @@ const Home = async () => {
 
   return (
     <main>
-      <Items
-        data={data}
-      />
+      <Content data={data} />
     </main>
   )
 }

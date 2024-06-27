@@ -1,15 +1,23 @@
 .wrapper {
+  top: 0;
+  left: 0;
   width: 60vw;
   display: flex;
+  z-index: 1;
+  position: absolute;
   flex-wrap: wrap;
 }
 
 .item {
-  width: 20vw;
+  width: 25vw;
   margin: 20px 20px 0;
 
   &:nth-child(2n) {
     margin-top: 80px;
+  }
+
+  &.sold {
+    opacity: 0.5;
   }
 
   p {
