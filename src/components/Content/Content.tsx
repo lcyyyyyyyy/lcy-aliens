@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
@@ -19,8 +19,43 @@ interface props {
 const Content = ({
   data
 }: props) => {
+  const count = data.length
+  const [tags, setTags] = useState([])
   const [items, setItems] = useState(data)
   const [filter, setFilter] = useState('')
+
+  // Filter tags
+  useEffect(() => {
+    let tagArray: any = []
+
+    data.forEach((item: any, i) => {
+      const properties = item.properties
+      const itemTags = properties?.Tags?.multi_select
+
+      itemTags.forEach((tag: { name: string }) => {
+        return tagArray.push(tag.name)
+      })
+    })
+
+    const counts = {}
+    let array: [] = []
+    let otherItem = {}
+
+    tagArray.forEach((x: string | number) => { return counts[x] = (counts[x] || 0) + 1 })
+
+    Object.entries(counts)
+      .forEach(item => {
+        const key = item[0].split('/')?.[0]
+        const name = item[0].split('/')?.[1]
+
+        let object = { key: key, name: name, count: item[1] }
+        if (key === 'Other') otherItem = object
+        else array.push(object)
+      })
+
+    array.push(otherItem)
+    setTags(array)
+  }, [data])
 
   useEffect(() => {
     let array: object[] = []
@@ -29,9 +64,13 @@ const Content = ({
     else {
       data.forEach((item: any, i) => {
         const properties = item.properties
-        const tags = properties?.Tags?.multi_select
+        const itemTags = properties?.Tags?.multi_select
         let tagNames: string[] = []
-        tags.forEach((tag: { name: string }) => { return tagNames.push(tag.name) })
+
+        itemTags.forEach((tag: { name: string }) => {
+          return tagNames.push(tag.name.split(/\//ig)[0])
+        })
+
         if (tagNames.includes(filter)) array.push(item)
       })
 
@@ -42,7 +81,12 @@ const Content = ({
   return (
     <>
       <Items data={items} />
-      <Filters data={data} setFilter={setFilter} />
+      <Filters
+        tags={tags}
+        count={count}
+        filter={filter}
+        setFilter={setFilter}
+      />
     </>
   )
 }

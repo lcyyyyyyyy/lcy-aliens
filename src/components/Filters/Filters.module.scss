@@ -3,12 +3,16 @@
   right: 0;
   width: 50vw;
   height: 100vh;
-  display: flex;
+  display: none;
   padding: 25px;
   position: fixed;
   align-items: flex-end;
   flex-direction: column;
   justify-content: flex-end;
+
+  @media (min-width: 790px) {
+    display: flex;
+  }
 }
 
 .filter {
@@ -51,4 +55,34 @@
 .title {
   color: #000;
   font-size: 6rem;
+}
+
+.selector {
+  top: 15px;
+  right: 15px;
+  width: 105px;
+  z-index: 99;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: flex-end;
+
+  .icon {
+    width: fit-content;
+  }
+
+  select {
+    right: 0;
+    border: none;
+    position: absolute;
+    font-size: 1.8rem;
+    appearance: none;
+    text-align: right;
+    padding-right: 35px;
+    background-color: transparent;
+  }
+
+  @media (min-width: 790px) {
+    display: none;
+  }
 }

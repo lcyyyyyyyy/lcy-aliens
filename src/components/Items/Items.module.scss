@@ -1,16 +1,24 @@
 .wrapper {
   top: 0;
   left: 0;
-  width: 60vw;
+  width: 100vw;
   display: flex;
   z-index: 1;
   position: absolute;
   flex-wrap: wrap;
+
+  @media (min-width: 790px) {
+    width: 80vw;
+  }
+
+  @media (min-width: 1060px) {
+    width: 60vw;
+  }
 }
 
 .item {
-  width: 25vw;
-  margin: 20px 20px 0;
+  width: calc(50vw - 30px);
+  margin: 15px 15px 0;
 
   &:nth-child(2n) {
     margin-top: 80px;
@@ -23,6 +31,15 @@
   p {
     margin-top: 15px;
     letter-spacing: 2px;
+  }
+
+  @media (min-width: 790px) {
+    width: calc(30vw - 40px);
+    margin: 20px 20px 0;
+  }
+
+  @media (min-width: 1060px) {
+    width: calc(25vw - 40px);
   }
 }
 
