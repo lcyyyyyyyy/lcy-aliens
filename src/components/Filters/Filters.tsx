@@ -32,6 +32,9 @@ const Filters = ({
   const defaultFontSize = '6rem'
   const [splited, setSplited] = useState(false)
 
+  console.log(count);
+
+
   const animateFontSize = (
     target: gsap.TweenTarget,
     fontSize: string
@@ -105,7 +108,7 @@ const Filters = ({
         {tags.length > 0 &&
           <>
             <div className={`${styles.filter} active`} data-filter=''>
-              <p>({count})</p>
+              <p>{`(${count})`}</p>
               <div className={styles.title}>所有商品</div>
             </div>
             {tags.map((tag: any) => {
@@ -128,7 +131,7 @@ const Filters = ({
           <IoFilterOutline size={26} />
         </div>
         <select
-          onChange={e => animateItems(e.target[e.target.selectedIndex].value)}
+          onChange={(e: { target: any }) => animateItems(e.target[e.target.selectedIndex].value)}
           defaultValue=''
         >
           <option value=''>所有商品</option>
