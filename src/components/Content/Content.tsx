@@ -20,7 +20,7 @@ const Content = ({
   data
 }: props) => {
   const count = data.length
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState<Array<object>>([])
   const [items, setItems] = useState(data)
   const [filter, setFilter] = useState('')
 
@@ -38,12 +38,13 @@ const Content = ({
     })
 
     const counts: any = {}
-    let array: object[] = []
+    const array: object[] = []
     let otherItem = {}
 
     tagArray.forEach((x: string | number) => { return counts[x] = (counts[x] || 0) + 1 })
 
-    Object.entries(counts)
+    Object
+      .entries(counts)
       .forEach(item => {
         const key = item[0].split('/')?.[0]
         const name = item[0].split('/')?.[1]
