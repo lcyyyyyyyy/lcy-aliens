@@ -37,8 +37,8 @@ const Content = ({
       })
     })
 
-    const counts = {}
-    let array: [] = []
+    const counts: any = {}
+    let array: object[] = []
     let otherItem = {}
 
     tagArray.forEach((x: string | number) => { return counts[x] = (counts[x] || 0) + 1 })
