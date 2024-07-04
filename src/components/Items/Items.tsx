@@ -1,12 +1,19 @@
+/**
+ * @file src/components/Content/Content.tsx
+ */
+
 'use client'
 
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
+import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import Image from 'next/image'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import styles from './Items.module.scss'
+
+import { animatePageOut } from '@/services/animations'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -17,6 +24,7 @@ interface props {
 const Items = ({
   data
 }: props) => {
+  const router = useRouter()
   const container = useRef(null)
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -44,6 +52,10 @@ const Items = ({
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
+  const onClick = (path: string) => {
+    animatePageOut(path, router)
+  }
+
   return (
     <div
       id='items'
@@ -52,6 +64,7 @@ const Items = ({
     >
       {data.map((item: any, i) => {
         const properties = item?.properties
+        const id = item?.properties?.ID?.unique_id?.number
         const name = item?.properties?.Name?.title[0]?.text.content
         const files = item?.properties?.Images?.files
         const price = properties?.Price?.number
@@ -63,7 +76,10 @@ const Items = ({
             key={item.id}
             className={`${styles.item}${status === 'Sold' ? ` ${styles.sold}` : ''}`}
           >
-            <div className={styles.image}>
+            <div
+              onClick={() => onClick(`/product/${id}`)}
+              className={styles.image}
+            >
               {files.length > 0 &&
                 <Image
                   alt={name}

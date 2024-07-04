@@ -1,7 +1,12 @@
+/**
+ * @file src/app/page.tsx
+ */
+
 'use client'
 
 import { useState, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
+import { useSearchParams } from 'next/navigation'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
@@ -20,9 +25,10 @@ const Content = ({
   data
 }: props) => {
   const count = data.length
+  const searchParams = useSearchParams()
   const [tags, setTags] = useState<Array<object>>([])
-  const [items, setItems] = useState(data)
-  const [filter, setFilter] = useState('')
+  const [items, setItems] = useState<Array<object>>([])
+  const [filter, setFilter] = useState<string>(searchParams.get('filter') ?? '')
 
   // Filter tags
   useEffect(() => {
@@ -81,7 +87,7 @@ const Content = ({
 
   return (
     <>
-      <Items data={items} />
+      {items.length > 0 && <Items data={items} />}
       <Filters
         tags={tags}
         count={count}

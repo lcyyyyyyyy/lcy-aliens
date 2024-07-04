@@ -1,3 +1,7 @@
+/**
+ * @file src/components/Content/Content.tsx
+ */
+
 'use client'
 
 import {
@@ -9,6 +13,7 @@ import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { IoFilterOutline } from 'react-icons/io5'
+import { useSearchParams } from 'next/navigation'
 
 import styles from './Filters.module.scss'
 
@@ -17,7 +22,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger)
 interface props {
   tags: Array<object>
   count: Number
-  filter: String
+  filter: string
   setFilter: Function
 }
 
@@ -28,12 +33,10 @@ const Filters = ({
   setFilter
 }: props) => {
   const container = useRef(null)
+  const searchParams = useSearchParams()
   const activeFontSize = '20rem'
   const defaultFontSize = '6rem'
   const [splited, setSplited] = useState(false)
-
-  console.log(count);
-
 
   const animateFontSize = (
     target: gsap.TweenTarget,
@@ -74,40 +77,59 @@ const Filters = ({
     setSplited(true)
   }
 
+  const clickEvent = (
+    filter: any,
+    filters: any
+  ) => {
+    if (filter.classList.contains('active')) return
+    animateFontSize(`.active .${styles.title} span`, defaultFontSize)
+
+    filters.forEach((f: any) => f.classList.remove('active'))
+    filter.classList.add('active')
+
+    animateFontSize(`.active .${styles.title} span`, activeFontSize)
+
+    const filterValue: string = filter.getAttribute('data-filter') ?? ''
+    animateItems(filterValue)
+
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('filter', filterValue)
+
+    window.history.pushState(null, '', filterValue === '' ? '/' : `?${params.toString()}`)
+  }
+
   useEffect(() => {
     if (tags.length > 0) splitTextIntoSpans()
   }, [tags])
 
   useEffect(() => {
-    if (tags.length > 0) {
+    if (splited) {
       const filters = document.querySelectorAll(`.${styles.filter}`)
 
-      filters.forEach(filter => {
-        filter.addEventListener('click', () => {
-          if (filter.classList.contains('active')) return
-          animateFontSize(`.active .${styles.title} span`, defaultFontSize)
-
-          filters.forEach(f => f.classList.remove('active'))
-          filter.classList.add('active')
-
+      filters.forEach(item => {
+        if (item.getAttribute('data-filter') === filter) {
+          item.classList.add('active')
           animateFontSize(`.active .${styles.title} span`, activeFontSize)
+        }
 
-          animateItems(filter.getAttribute('data-filter'))
+        item.addEventListener('click', () => {
+          clickEvent(item, filters)
         })
       })
-    }
-  }, [tags])
 
-  useGSAP(() => {
-    if (splited) animateFontSize(`.active .${styles.title} span`, activeFontSize)
-  }, { scope: container, dependencies: [tags, filter, splited] })
+      if (filter === '') {
+        filters[0].classList.add('active')
+        animateFontSize(`.active .${styles.title} span`, activeFontSize)
+      }
+    }
+  }, [splited])
 
   return (
     <>
       <div ref={container} className={styles.wrapper}>
         {tags.length > 0 &&
           <>
-            <div className={`${styles.filter} active`} data-filter=''>
+            <div className={styles.filter} data-filter=''>
               <p>{`(${count})`}</p>
               <div className={styles.title}>所有商品</div>
             </div>
@@ -132,7 +154,7 @@ const Filters = ({
         </div>
         <select
           onChange={(e: { target: any }) => animateItems(e.target[e.target.selectedIndex].value)}
-          defaultValue=''
+          defaultValue={filter}
         >
           <option value=''>所有商品</option>
           {tags.map((tag: any) => {
