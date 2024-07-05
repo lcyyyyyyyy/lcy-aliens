@@ -1,7 +1,3 @@
-import { Client } from '@notionhq/client'
-
-import Content from '@/components/Content/Content'
-
 const Product = async ({ params }: { params: { id: string } }) => {
 
   return (
@@ -9,6 +5,10 @@ const Product = async ({ params }: { params: { id: string } }) => {
       <p>{params.id}</p>
     </main>
   )
+}
+
+export const generateStaticParams = () => {
+  return []
 }
 
 export default Product
