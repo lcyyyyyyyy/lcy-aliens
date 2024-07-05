@@ -64,7 +64,7 @@ const Items = ({
     >
       {data.map((item: any, i) => {
         const properties = item?.properties
-        const id = item?.properties?.ID?.unique_id?.number
+        const id = item?.id
         const name = item?.properties?.Name?.title[0]?.text.content
         const files = item?.properties?.Images?.files
         const price = properties?.Price?.number
@@ -77,7 +77,7 @@ const Items = ({
             className={`${styles.item}${status === 'Sold' ? ` ${styles.sold}` : ''}`}
           >
             <div
-              onClick={() => onClick(`/product/${id}`)}
+              onClick={() => onClick(`/products/${id}`)}
               className={styles.image}
             >
               {files.length > 0 &&
