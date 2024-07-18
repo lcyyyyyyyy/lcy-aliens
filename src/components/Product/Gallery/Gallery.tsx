@@ -61,7 +61,7 @@ const Gallery = ({
   }, { scope: container, dependencies: [data] })
 
   useEffect(() => {
-    const swiperEl = swiperRef.current
+    const swiperEl: any = swiperRef.current
 
     const params = {
       speed: 800,
@@ -70,7 +70,7 @@ const Gallery = ({
         progress: (swiper: { slides: { progress: any }[]; width: number }, progress: any) => {
           const slides = swiper.slides
           for (let i = 0; i < slides.length; i++) {
-            const element = slides[i]
+            const element: any = slides[i]
             const slideProgress = swiper.slides[i].progress
             const innerOffset = swiper.width * 0.2
             const innerTranslate = slideProgress * innerOffset
@@ -104,10 +104,8 @@ const Gallery = ({
           >
             {data.map((item: any) => {
               return (
-                <swiper-slide
-                  key={item.name}
-                  className={styles.item}
-                >
+                <swiper-slide key={item.name}>
+                  <div className={styles.item}>
                   <figure
                     style={{ backgroundImage: `url(${item.name})` }}
                     className={styles.backgroundImage}
@@ -119,6 +117,7 @@ const Gallery = ({
                       sizes='100%'
                     />
                   </figure>
+                  </div>
                 </swiper-slide>
               )
             })}
