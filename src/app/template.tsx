@@ -15,7 +15,7 @@ export default function Template({
   const pathname = usePathname()
 
   useEffect(() => {
-    if (pathname !== '/') animatePageIn()
+    animatePageIn()
   }, [pathname])
 
   return (

@@ -1,23 +1,26 @@
 import { Client } from '@notionhq/client'
 
-  const token = process.env.NEXT_PUBLIC_NOTION_TOKEN
-  const notion = new Client({ auth: token })
+import Content from '@/components/Product/Content/Content'
+
+const token = process.env.NEXT_PUBLIC_NOTION_TOKEN
+const notion = new Client({ auth: token })
 
 const Product = async ({
   params
 }: {
   params: { id: string }
 }) => {
-  const response = await notion.pages.retrieve({ page_id: params.id })
+  const response: any = await notion.pages.retrieve({ page_id: params.id })
+  const data = response?.properties
 
   return (
     <main>
-      <p>{params?.id}</p>
+      <Content data={data} />
     </main>
   )
 }
 
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
   const id = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID!
   const pages = await notion.databases.query({ database_id: id })
   const data = pages.results ?? []

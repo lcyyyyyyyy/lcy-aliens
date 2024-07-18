@@ -12,8 +12,8 @@ export const animatePageIn = () => {
     .to(overlay, {
       ease: 'power4.inOut',
       delay: 0.5,
-      duration: 1,
-      clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)'
+      clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
+      duration: 1
     })
 }
 
@@ -27,8 +27,8 @@ export const animatePageOut = (
   tl
     .to(overlay, {
       ease: 'power4.inOut',
-      duration: 1,
       clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)',
+      duration: 1,
       onComplete: () => {
         router.push(path)
       }

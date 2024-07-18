@@ -32,6 +32,7 @@ const Filters = ({
   filter,
   setFilter
 }: props) => {
+  const isProd = process.env.NODE_ENV === 'production'
   const container = useRef(null)
   const searchParams = useSearchParams()
   const activeFontSize = '20rem'
@@ -95,7 +96,7 @@ const Filters = ({
     const params = new URLSearchParams(searchParams.toString())
     params.set('filter', filterValue)
 
-    window.history.pushState(null, '', filterValue === '' ? '/' : `?${params.toString()}`)
+    window.history.pushState(null, '', filterValue === '' ? isProd ? '/lcy-aliens' : '/' : `?${params.toString()}`)
   }
 
   useEffect(() => {
