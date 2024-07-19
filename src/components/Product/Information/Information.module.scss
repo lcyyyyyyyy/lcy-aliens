@@ -1,3 +1,44 @@
 .wrapper {
   height: 200vh;
+  padding: 40px;
+}
+
+.name {
+  font-size: 4rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+
+  p {
+    color: #fff;
+    margin: 25px auto;
+    padding: 0 7px;
+    line-height: 20px;
+    border-radius: 10px;
+  }
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-size: 2rem;
+    margin-right: 10px;
+
+    &.original {
+      color: #888;
+      text-decoration: line-through;
+    }
+
+    &.sale {
+      color: #41ad2e;
+      font-weight: bold;
+    }
+  }
 }

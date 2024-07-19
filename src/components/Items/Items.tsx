@@ -13,6 +13,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import styles from './Items.module.scss'
 
+import { formatter } from '@/services/utils'
 import { animatePageOut } from '@/services/animations'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -26,12 +27,6 @@ const Items = ({
 }: props) => {
   const router = useRouter()
   const container = useRef(null)
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  })
 
   useGSAP(() => {
     gsap.set(`.${styles.item} img`, {
