@@ -30,12 +30,11 @@ const Tag = async ({
 }
 
 export const generateStaticParams = async () => {
-  const id = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID!
   const pages = await notion.databases.query({ database_id: id })
   const data = pages.results ?? []
 
   return data.map((page) => ({
-    id: page.id
+    name: page.id
   }))
 }
 
