@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import { Inter } from 'next/font/google'
+import { Short_Stack } from 'next/font/google'
 import '../styles/default.scss'
 
-const inter = Inter({ subsets: ['latin'] })
+const short_Stack = Short_Stack({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'lcy Store',
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={short_Stack.className}>
         <Suspense fallback={null}>
           {children}
         </Suspense>

@@ -6,6 +6,7 @@
 
 import { useRef, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
+import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
 import Image from 'next/image'
 import ScrollTrigger from 'gsap/ScrollTrigger'
@@ -13,6 +14,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import styles from './Information.module.scss'
 
 import { formatter } from '@/services/utils'
+import { animatePageOut } from '@/services/animations'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -23,14 +25,14 @@ interface props {
 const Information = ({
   data
 }: props) => {
+  const router = useRouter()
   const container = useRef(null)
+  const tags = data?.Tags?.multi_select
   const name = data?.Name?.title[0]?.plain_text
   const status = data?.Status?.status
-  const statusColor = status.color === 'green' ? '#2b593f' : status.color === 'red' ? '#6e3630' : '#5a5a5a'
+  const statusColor = status.color === 'green' ? '#63987a' : status.color === 'red' ? '#d7a5a0' : '#5a5a5a'
   const price = data?.Price?.number
   const discount = data?.Discount?.number
-  console.log(discount);
-
 
   useEffect(() => {
     console.log(data)
@@ -39,6 +41,10 @@ const Information = ({
   useGSAP(() => {
 
   }, { scope: container, dependencies: [data] })
+
+  const handleTagClicked = (name: string) => {
+    animatePageOut(`/tags/${(encodeURIComponent(name))}`, router)
+  }
 
   return (
     <div
@@ -49,7 +55,7 @@ const Information = ({
       <div className={styles.status}>
         <p style={{ backgroundColor: statusColor }}>{status?.name}</p>
       </div>
-      {price &&
+      {(price && status?.name !== 'Not for Sale') &&
         <div className={styles.price}>
           <p className={discount ? styles.original : undefined}>NT{formatter.format(price)}</p>
           {discount &&
@@ -60,6 +66,23 @@ const Information = ({
           }
         </div>
       }
+
+      <div className={styles.tags}>
+        {tags.map((item: any) => {
+          const isFilterTag = item?.name.match(/\//ig)
+          const tagName = isFilterTag ? item?.name.split(/\//ig)[1] : item?.name
+
+          return (
+            <div
+              key={item?.name}
+              onClick={() => handleTagClicked(item?.name)}
+              className={styles.tag}
+            >
+              #{tagName}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

@@ -1,0 +1,19 @@
+.wrapper {
+  color: #41ad2e;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  bottom: 0;
+  cursor: default;
+  display: none;
+  padding: 25px;
+  position: fixed;
+  font-size: 20rem;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  @media (min-width: 790px) {
+    display: flex;
+  }
+}

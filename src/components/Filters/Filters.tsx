@@ -134,18 +134,20 @@ const Filters = ({
               <p>{`(${count})`}</p>
               <div className={styles.title}>所有商品</div>
             </div>
-            {tags.map((tag: any) => {
-              return (
-                <div
-                  key={tag.key}
-                  className={styles.filter}
-                  data-filter={tag.key}
-                >
-                  <p>({tag.count})</p>
-                  <div className={styles.title}>{tag.name}</div>
-                </div>
-              )
-            })}
+            {tags
+              .filter((tag: any) => { return tag.name !== undefined })
+              .map((tag: any) => {
+                return (
+                  <div
+                    key={tag.key}
+                    className={styles.filter}
+                    data-filter={tag.key}
+                  >
+                    <p>({tag.count})</p>
+                    <div className={styles.title}>{tag.name}</div>
+                  </div>
+                )
+              })}
           </>
         }
       </div>

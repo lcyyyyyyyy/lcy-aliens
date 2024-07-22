@@ -15,7 +15,7 @@
 
   p {
     color: #fff;
-    margin: 25px auto;
+    margin: 25px auto 0;
     padding: 0 7px;
     line-height: 20px;
     border-radius: 10px;
@@ -24,6 +24,7 @@
 
 .price {
   display: flex;
+  margin-top: 25px;
   align-items: center;
   justify-content: center;
 
@@ -40,5 +41,17 @@
       color: #41ad2e;
       font-weight: bold;
     }
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 25px;
+  justify-content: center;
+
+  .tag {
+    cursor: pointer;
+    margin-right: 15px;
   }
 }
