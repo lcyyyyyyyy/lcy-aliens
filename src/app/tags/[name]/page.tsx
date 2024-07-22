@@ -33,8 +33,19 @@ export const generateStaticParams = async () => {
   const pages = await notion.databases.query({ database_id: id })
   const data = pages.results ?? []
 
-  return data.map((page) => ({
-    name: page.id
+  let tagArray: any = []
+
+  data.forEach((item: any, i) => {
+    const properties = item.properties
+    const itemTags = properties?.Tags?.multi_select
+
+    itemTags.forEach((tag: { name: string }) => {
+      if (!tagArray.includes(tag.name)) return tagArray.push(tag.name)
+    })
+  })
+
+  return tagArray.map((tag: nay) => ({
+    name: tag
   }))
 }
 
