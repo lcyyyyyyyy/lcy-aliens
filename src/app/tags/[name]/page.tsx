@@ -34,7 +34,9 @@ export const generateStaticParams = async () => {
   const pages = await notion.databases.query({ database_id: id })
   const data = pages.results ?? []
 
-  return data
+  return data.map((page) => ({
+    id: page.id
+  }))
 }
 
 export default Tag
