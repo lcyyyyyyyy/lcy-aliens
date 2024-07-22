@@ -44,7 +44,7 @@ export const generateStaticParams = async () => {
     })
   })
 
-  return tagArray.map((tag: nay) => ({
+  return tagArray.map((tag: any) => ({
     name: tag
   }))
 }
