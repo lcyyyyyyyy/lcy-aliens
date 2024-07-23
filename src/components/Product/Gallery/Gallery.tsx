@@ -31,8 +31,8 @@ const Gallery = ({
   name
 }: props) => {
   const swiperRef = useRef(null)
-  const container = useRef(null)
   const galleryRef = useRef(null)
+  const swiperThumbsRef = useRef(null)
   let scrollTop = 0
 
   const handleScroll = () => {
@@ -48,6 +48,7 @@ const Gallery = ({
 
   useEffect(() => {
     const swiperEl: any = swiperRef.current
+    const swiperThumbsEl: any = swiperThumbsRef.current
 
     const params = {
       speed: 800,
@@ -74,17 +75,24 @@ const Gallery = ({
       }
     }
 
+    const paramsThumbs = {
+      speed: 800,
+      spaceBetween: 15,
+      slidesPerView: 5,
+      centerInsufficientSlides: true
+    }
+
     if (swiperEl) {
       Object.assign(swiperEl, params)
+      Object.assign(swiperThumbsEl, paramsThumbs)
       swiperEl.initialize()
+      swiperThumbsEl.initialize()
     }
   }, [])
 
   return (
-    <div ref={container}>
-      <div
-        className={styles.wrapper}
-      >
+    <>
+      <div className={styles.wrapper}>
         <div
           ref={galleryRef}
           style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
@@ -116,7 +124,37 @@ const Gallery = ({
           </swiper-container>
         </div>
       </div>
-    </div>
+
+      <div className={styles.thumbs}>
+        <swiper-container
+          ref={swiperThumbsRef}
+          init={false}
+        >
+          {data.map((item: any) => {
+            return (
+              <swiper-slide key={item.name}>
+                <div
+                  style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
+                  className={styles.item}
+                >
+                  <figure
+                    style={{ backgroundImage: `url(${item.name})` }}
+                    className={styles.backgroundImage}
+                  >
+                    <Image
+                      alt={name}
+                      src={item.name}
+                      fill={true}
+                      sizes='100%'
+                    />
+                  </figure>
+                </div>
+              </swiper-slide>
+            )
+          })}
+        </swiper-container>
+      </div>
+    </>
   )
 }
 
