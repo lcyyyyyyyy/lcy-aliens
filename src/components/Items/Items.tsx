@@ -4,7 +4,7 @@
 
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
@@ -13,7 +13,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import styles from './Items.module.scss'
 
-import { formatter } from '@/services/utils'
+import { formatter, getRandom } from '@/services/utils'
 import { animatePageOut } from '@/services/animations'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
@@ -43,13 +43,18 @@ const Items = ({
     })
   }, { scope: container, dependencies: [data] })
 
-  const getRandom = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
   const onClick = (path: string) => {
     animatePageOut(path, router)
   }
+
+  useEffect(() => {
+    const images = document.querySelectorAll(`.${styles.image}`)
+    
+    for (let i = 0; i < images.length; i++) {
+      const element: any = images[i]
+      element.style.borderRadius = `${getRandom(2, 7) * 10}% ${getRandom(2, 8) * 10}% ${getRandom(2, 7) * 10}% ${getRandom(2, 8) * 10}%`
+    }
+  }, [data])
 
   return (
     <div
@@ -57,14 +62,15 @@ const Items = ({
       ref={container}
       className={styles.wrapper}
     >
-      {data.map((item: any, i) => {
+      {data.map((item: any) => {
         const properties = item?.properties
         const id = item?.id
-        const name = item?.properties?.Name?.title[0]?.text.content
-        const files = item?.properties?.Images?.files
+        const name = properties?.Name?.title[0]?.text.content
+        const files = properties?.Images?.files
         const price = properties?.Price?.number
         const image = files[0]?.external?.url
         const status = properties?.Status?.status?.name
+        const discount = properties?.Discount?.number
 
         return (
           <div
@@ -90,7 +96,9 @@ const Items = ({
 
             {/* Price */}
             {status !== 'Not for Sale' &&
-              <p>{`NT${formatter.format(price)}`}</p>
+              <p className={discount ? styles.sale : undefined}>
+                {`NT${formatter.format(discount ? price * (1 - discount) : price)}`}
+              </p>
             }
           </div>
         )

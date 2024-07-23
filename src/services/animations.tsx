@@ -30,7 +30,7 @@ export const animatePageOut = (
       clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)',
       duration: 1,
       onComplete: () => {
-        router.push(path)
+        router.push(path, { scroll: false })
       }
     })
 }

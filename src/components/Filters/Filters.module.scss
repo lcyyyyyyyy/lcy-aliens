@@ -1,3 +1,5 @@
+@import '../../styles/main';
+
 .wrapper {
   top: 0;
   right: 0;
@@ -32,7 +34,7 @@
 
       p,
       span {
-        color: #41ad2e;
+        color: $themeColor;
       }
     }
   }

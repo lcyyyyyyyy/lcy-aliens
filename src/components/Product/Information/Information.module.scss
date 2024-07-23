@@ -1,12 +1,18 @@
+@import '../../../styles/main';
+
 .wrapper {
   height: 200vh;
   padding: 40px;
 }
 
 .name {
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: center;
   font-weight: bold;
+
+  @media (min-width: 790px) {
+    font-size: 4rem;
+  }
 }
 
 .status {
@@ -38,7 +44,7 @@
     }
 
     &.sale {
-      color: #41ad2e;
+      color: $themeColor;
       font-weight: bold;
     }
   }
@@ -51,6 +57,7 @@
   justify-content: center;
 
   .tag {
+    color: #888;
     cursor: pointer;
     margin-right: 15px;
   }

@@ -15,6 +15,8 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import 'swiper/scss'
 import styles from './Gallery.module.scss'
 
+import { getRandom } from '@/services/utils'
+
 gsap.registerPlugin(useGSAP, Draggable, ScrollTrigger)
 
 register()
@@ -30,35 +32,19 @@ const Gallery = ({
 }: props) => {
   const swiperRef = useRef(null)
   const container = useRef(null)
+  const galleryRef = useRef(null)
+  let scrollTop = 0
+
+  const handleScroll = () => {
+    scrollTop = window.scrollY
+    const swiper: any = swiperRef.current
+    if (swiper) swiper.style.transform = `translateY(${scrollTop * 0.5}px) scale(1.05)`
+  }
 
   useEffect(() => {
-    console.log(data)
-  }, [data])
-
-  useGSAP(() => {
-
-    const getRatio = (el: any) => {
-      return window.innerHeight / (window.innerHeight + el.offsetHeight)
-    }
-
-    const wrapper = document.getElementsByClassName(styles.wrapper)[0]
-    const gallery = document.getElementsByClassName(styles.gallery)[0]
-
-    // Parallax vertical
-    gsap.fromTo(gallery, {
-      y: () => `${-window.innerHeight * getRatio(wrapper)}px`
-    }, {
-      y: () => `${window.innerHeight * (1 - getRatio(wrapper))}px`,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: wrapper,
-        end: 'bottom top',
-        scrub: true,
-        start: () => 'top bottom',
-        invalidateOnRefresh: true
-      }
-    })
-  }, { scope: container, dependencies: [data] })
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', () => handleScroll)
+  }, [])
 
   useEffect(() => {
     const swiperEl: any = swiperRef.current
@@ -96,8 +82,14 @@ const Gallery = ({
 
   return (
     <div ref={container}>
-      <div className={styles.wrapper}>
-        <div className={styles.gallery}>
+      <div
+        className={styles.wrapper}
+      >
+        <div
+          ref={galleryRef}
+          style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
+          className={styles.gallery}
+        >
           <swiper-container
             ref={swiperRef}
             init={false}
@@ -106,17 +98,17 @@ const Gallery = ({
               return (
                 <swiper-slide key={item.name}>
                   <div className={styles.item}>
-                  <figure
-                    style={{ backgroundImage: `url(${item.name})` }}
-                    className={styles.backgroundImage}
-                  >
-                    <Image
-                      alt={name}
-                      src={item.name}
-                      fill={true}
-                      sizes='100%'
-                    />
-                  </figure>
+                    <figure
+                      style={{ backgroundImage: `url(${item.name})` }}
+                      className={styles.backgroundImage}
+                    >
+                      <Image
+                        alt={name}
+                        src={item.name}
+                        fill={true}
+                        sizes='100%'
+                      />
+                    </figure>
                   </div>
                 </swiper-slide>
               )
