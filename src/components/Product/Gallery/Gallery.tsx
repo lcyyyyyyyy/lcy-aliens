@@ -4,20 +4,14 @@
 
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
-import { useGSAP } from '@gsap/react'
+import { useRef, useEffect } from 'react'
 import { register } from 'swiper/element/bundle'
-import { Draggable } from 'gsap/Draggable'
-import gsap from 'gsap'
 import Image from 'next/image'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import 'swiper/scss'
 import styles from './Gallery.module.scss'
 
 import { getRandom } from '@/services/utils'
-
-gsap.registerPlugin(useGSAP, Draggable, ScrollTrigger)
 
 register()
 
@@ -53,6 +47,9 @@ const Gallery = ({
     const params = {
       speed: 800,
       watchSlidesProgress: true,
+      thumbs: {
+        swiper: swiperThumbsRef.current
+      },
       on: {
         progress: (swiper: { slides: { progress: any }[]; width: number }, progress: any) => {
           const slides = swiper.slides

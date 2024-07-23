@@ -66,5 +66,10 @@
 
   img {
     object-fit: cover;
+    transition: .6s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }

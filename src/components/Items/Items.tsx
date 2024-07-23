@@ -5,18 +5,13 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { useGSAP } from '@gsap/react'
 import { useRouter } from 'next/navigation'
-import gsap from 'gsap'
 import Image from 'next/image'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import styles from './Items.module.scss'
 
 import { formatter, getRandom } from '@/services/utils'
 import { animatePageOut } from '@/services/animations'
-
-gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface props {
   data: Array<object>
@@ -28,21 +23,6 @@ const Items = ({
   const router = useRouter()
   const container = useRef(null)
 
-  useGSAP(() => {
-    gsap.set(`.${styles.item} img`, {
-      scale: 1.1,
-      yPercent: -2.5
-    })
-
-    gsap.to(`.${styles.item} img`, {
-      ease: 'none',
-      yPercent: 5,
-      scrollTrigger: {
-        scrub: true
-      }
-    })
-  }, { scope: container, dependencies: [data] })
-
   const onClick = (path: string) => {
     animatePageOut(path, router)
   }
@@ -52,7 +32,7 @@ const Items = ({
     
     for (let i = 0; i < images.length; i++) {
       const element: any = images[i]
-      element.style.borderRadius = `${getRandom(2, 7) * 10}% ${getRandom(2, 8) * 10}% ${getRandom(2, 7) * 10}% ${getRandom(2, 8) * 10}%`
+      element.style.borderRadius = `${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px ${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px`
     }
   }, [data])
 
