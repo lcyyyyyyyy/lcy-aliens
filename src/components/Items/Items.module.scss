@@ -74,3 +74,9 @@
     }
   }
 }
+
+@for $i from 1 through 100 {
+  .item:nth-child(#{$i}) .image {
+    border-radius: (random(20) + 30%) (random(20) + 20%) (random(20) + 30%) (random(20) + 20%);
+  }
+}

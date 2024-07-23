@@ -29,7 +29,7 @@
   width: calc(100% - 30px);
   height: calc(50vh - 30px);
   overflow: hidden;
-  border-radius: random(20) + 20% random(20) + 20% random(20) + 20% random(20) + 20%;
+  border-radius: (random(20) + 20%) (random(20) + 20%) (random(20) + 20%) (random(20) + 20%);
 
   @media (min-width: 790px) {
     height: 90vh;
