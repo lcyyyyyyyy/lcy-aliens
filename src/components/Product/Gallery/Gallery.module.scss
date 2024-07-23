@@ -26,8 +26,8 @@
 }
 
 .gallery {
-  width: 95vw;
-  height: 47.5vh;
+  width: calc(100% - 30px);
+  height: calc(50vh - 30px);
   overflow: hidden;
 
   @media (min-width: 790px) {
@@ -36,23 +36,29 @@
 }
 
 .thumbs {
-  width: 95vw;
-  // height: 50px;
+  width: 100%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   swiper-container {
-    width: 50vw;
-    // height: 50px;
+    width: 100%;
   }
 
   swiper-slide {
+    cursor: pointer;
+
     &::before {
       content: '';
       display: block;
       padding-bottom: 100%;
+    }
+  }
+
+  @media (min-width: 790px) {
+    swiper-container {
+      width: 50vw;
     }
   }
 }

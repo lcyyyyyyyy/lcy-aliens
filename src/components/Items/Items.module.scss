@@ -21,6 +21,7 @@
 .item {
   width: calc(50vw - 30px);
   margin: 15px 15px 0;
+  overflow: hidden;
 
   &:nth-child(2n) {
     margin-top: 80px;

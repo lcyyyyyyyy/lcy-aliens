@@ -25,7 +25,7 @@ const Gallery = ({
   name
 }: props) => {
   const swiperRef = useRef(null)
-  const galleryRef = useRef(null)
+  const galleryRef = useRef<any>(null)
   const swiperThumbsRef = useRef(null)
   let scrollTop = 0
 
@@ -51,6 +51,9 @@ const Gallery = ({
         swiper: swiperThumbsRef.current
       },
       on: {
+        init: () => {
+          if (galleryRef.current) galleryRef.current.style.borderRadius = `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%`
+        },
         progress: (swiper: { slides: { progress: any }[]; width: number }, progress: any) => {
           const slides = swiper.slides
           for (let i = 0; i < slides.length; i++) {
@@ -92,7 +95,6 @@ const Gallery = ({
       <div className={styles.wrapper}>
         <div
           ref={galleryRef}
-          style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
           className={styles.gallery}
         >
           <swiper-container

@@ -31,8 +31,8 @@ const Items = ({
     const images = document.querySelectorAll(`.${styles.image}`)
     
     for (let i = 0; i < images.length; i++) {
-      const element: any = images[i]
-      element.style.borderRadius = `${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px ${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px`
+      const image: any = images[i]
+      image.style.borderRadius = `${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px ${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px`
     }
   }, [data])
 
