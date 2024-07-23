@@ -32,7 +32,9 @@ const Items = ({
     
     for (let i = 0; i < images.length; i++) {
       const image: any = images[i]
-      image.style.borderRadius = `${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px ${getRandom(4, 7) * 10}px ${getRandom(4, 8) * 10}px`
+      image.style.borderRadius = `${getRandom(4, 7) * 10}px ${getRandom(4, 9) * 10}px ${getRandom(4, 7) * 10}px ${getRandom(4, 9) * 10}px`
+
+      image.parentNode.style.borderRadius = image.style.borderRadius 
     }
   }, [data])
 
