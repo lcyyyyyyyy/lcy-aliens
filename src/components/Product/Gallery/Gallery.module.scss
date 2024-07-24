@@ -28,6 +28,7 @@
 .gallery {
   width: calc(100% - 30px);
   height: calc(50vh - 30px);
+  outline: none;
   overflow: hidden;
   border-radius: (random(20) + 20%) (random(20) + 20%) (random(20) + 20%) (random(20) + 20%);
 
