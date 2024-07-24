@@ -18,8 +18,7 @@ interface props {
 }
 
 const Items = ({
-  data,
-  filter
+  data
 }: props) => {
   const router = useRouter()
   const container = useRef(null)
