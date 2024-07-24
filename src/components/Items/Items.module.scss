@@ -54,7 +54,7 @@
 .image {
   width: 100%;
   cursor: pointer;
-  outline: none;
+  z-index: 0;
   overflow: hidden;
   position: relative;
 
@@ -78,6 +78,6 @@
 
 @for $i from 1 through 100 {
   .item:nth-child(#{$i}) .image {
-    border-radius: (random(20) + 30%) (random(20) + 20%) (random(20) + 30%) (random(20) + 20%);
+    border-radius: (random(20) + 30%) (random(20) + 30%) (random(20) + 30%) (random(20) + 30%);
   }
 }
