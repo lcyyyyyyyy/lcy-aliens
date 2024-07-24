@@ -30,6 +30,7 @@ const Information = ({
 
   const tags = data?.Tags?.multi_select
   const name = data?.Name?.title[0]?.plain_text
+  const links = data?.Links?.rich_text
   const description = data?.Description?.rich_text[0]?.text?.content
 
   // Status
@@ -102,26 +103,26 @@ const Information = ({
         })}
       </div>
 
-      {status?.name === 'On Sale' &&
+      {(
+        (links.length > 0) &&
+        (status?.name === 'On Sale')
+      ) &&
         <div className={styles.links}>
-          {link711 &&
-            <a
-              href={link711}
-              target='_blank'
-              className={`${styles.link} ${styles.seven}`}
-            >
-              賣貨便
-            </a>
-          }
-          {linkFM &&
-            <a
-              href={linkFM}
-              target='_blank'
-              className={`${styles.link} ${styles.fm}`}
-            >
-              好賣+
-            </a>
-          }
+          {links
+            .filter((link: any) => { return link?.text?.link })
+            .map((link: any) => {
+              return (
+                <a
+                  key={link?.text?.link?.url}
+                  href={link?.text?.link?.url}
+                  style={{ borderRadius: `${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}%` }}
+                  target='_blank'
+                  className={`${styles.link} ${link?.text?.content === '賣貨便' ? styles.seven : link?.text?.content === '好賣+' ? styles.fm : ''}`}
+                >
+                  {link?.text?.content}
+                </a>
+              )
+            })}
         </div>
       }
 
