@@ -18,7 +18,8 @@ interface props {
 }
 
 const Items = ({
-  data
+  data,
+  filter
 }: props) => {
   const router = useRouter()
   const container = useRef(null)
@@ -26,6 +27,14 @@ const Items = ({
   const onClick = (path: string) => {
     animatePageOut(path, router)
   }
+
+  useEffect(() => {
+    const images = document.querySelectorAll(`.${styles.image}`)
+    for (let i = 0; i < images.length; i++) {
+      const image: any = images[i]
+      image.style.borderRadius = `${getRandom(2, 3) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(2, 3) * 10}%`
+    }
+  }, [data])
 
   return (
     <div

@@ -13,22 +13,34 @@
   text-align: center;
   font-weight: bold;
 
-  @media (min-width: 790px) {
+  @media (min-width: 560px) {
     font-size: 4rem;
+  }
+
+  @media (min-width: 790px) {
+    font-size: 5rem;
   }
 }
 
 .status {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 25px;
 
   p {
     color: #fff;
-    margin: 25px auto 0;
+    margin: 0 auto;
     padding: 0 7px;
+    font-size: 1.4rem;
     line-height: 20px;
     border-radius: 10px;
     text-transform: uppercase;
+  }
+
+  @media (min-width: 480px) {
+    p {
+      font-size: 1.8rem;
+    }
   }
 }
 
@@ -39,7 +51,8 @@
   justify-content: center;
 
   p {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: bold;
     margin-right: 10px;
 
     &:last-child {
@@ -54,6 +67,14 @@
     &.sale {
       color: $themeColor;
       font-weight: bold;
+    }
+
+    @media (min-width: 560px) {
+      font-size: 2.6rem;
+    }
+
+    @media (min-width: 790px) {
+      font-size: 3rem;
     }
   }
 }
@@ -115,8 +136,10 @@
 .description {
   width: 100%;
   margin: 0 auto;
+  z-index: 0;
   padding: 80px 40px;
   margin-top: 25px;
+  font-weight: bold;
   letter-spacing: 1px;
 
   p {

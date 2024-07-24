@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import { Short_Stack } from 'next/font/google'
+import localFont from 'next/font/local'
 import '../styles/default.scss'
 
-const short_Stack = Short_Stack({ weight: '400', subsets: ['latin'] })
+const ChenYuluoyan = localFont({ src: '../../public/fonts/ChenYuluoyan-Thin-Monospaced.ttf' })
 
 export const metadata: Metadata = {
   title: 'lcy Store',
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={short_Stack.className}>
+      <body className={ChenYuluoyan.className}>
         <Suspense fallback={null}>
           {children}
         </Suspense>

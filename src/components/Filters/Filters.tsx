@@ -54,12 +54,12 @@ const Filters = ({
   const animateItems = (filter: any) => {
     gsap.to('#items', {
       opacity: 0,
-      duration: 0.25,
+      duration: 0.5,
       onComplete: () => {
         setFilter(filter)
         gsap.to('#items', {
           opacity: 1,
-          duration: 0.25
+          duration: 0.5
         })
       }
     })
@@ -160,16 +160,18 @@ const Filters = ({
           defaultValue={filter}
         >
           <option value=''>所有商品</option>
-          {tags.map((tag: any) => {
-            return (
-              <option
-                key={tag.key}
-                value={tag.key}
-              >
-                {tag.name}({tag.count})
-              </option>
-            )
-          })}
+          {tags
+            .filter((tag: any) => { return tag.name !== undefined })
+            .map((tag: any) => {
+              return (
+                <option
+                  key={tag.key}
+                  value={tag.key}
+                >
+                  {tag.name}({tag.count})
+                </option>
+              )
+            })}
         </select>
       </div>
     </>

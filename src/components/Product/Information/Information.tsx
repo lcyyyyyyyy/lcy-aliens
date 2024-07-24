@@ -62,9 +62,17 @@ const Information = ({
       className={styles.wrapper}
     >
       <div className={styles.name}>{name}</div>
+
       <div className={styles.status}>
-        <p style={{ backgroundColor: statusColor }}>{status?.name}</p>
+        <p style={{
+          borderRadius: `${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}%`,
+          backgroundColor: statusColor
+        }}
+        >
+          {status?.name}
+        </p>
       </div>
+
       {(price && status?.name !== 'Not for Sale') &&
         <div className={styles.price}>
           <p className={discount ? styles.original : undefined}>NT{formatter.format(price)}</p>

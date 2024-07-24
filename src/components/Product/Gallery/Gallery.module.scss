@@ -30,7 +30,6 @@
   height: calc(50vh - 30px);
   z-index: 0;
   overflow: hidden;
-  border-radius: (random(20) + 20%) (random(20) + 20%) (random(20) + 20%) (random(20) + 20%);
 
   @media (min-width: 790px) {
     height: 90vh;
@@ -56,6 +55,10 @@
       display: block;
       padding-bottom: 100%;
     }
+  }
+
+  .item {
+    z-index: 0;
   }
 
   @media (min-width: 790px) {

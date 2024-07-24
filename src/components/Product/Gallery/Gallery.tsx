@@ -46,9 +46,9 @@ const Gallery = ({
     const params = {
       speed: 800,
       watchSlidesProgress: true,
-      thumbs: {
+      thumbs: data?.length > 1 ? {
         swiper: swiperThumbsRef.current
-      },
+      } : false,
       on: {
         progress: (swiper: { slides: { progress: any }[]; width: number }, progress: any) => {
           const slides = swiper.slides
@@ -80,16 +80,22 @@ const Gallery = ({
 
     if (swiperEl) {
       Object.assign(swiperEl, params)
-      Object.assign(swiperThumbsEl, paramsThumbs)
       swiperEl.initialize()
-      swiperThumbsEl.initialize()
+
+      if (swiperThumbsEl) {
+        swiperThumbsEl.initialize()
+        Object.assign(swiperThumbsEl, paramsThumbs)
+      }
     }
   }, [])
 
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.gallery}>
+        <div
+          style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
+          className={styles.gallery}
+        >
           <swiper-container
             ref={swiperRef}
             init={false}
@@ -117,35 +123,37 @@ const Gallery = ({
         </div>
       </div>
 
-      <div className={styles.thumbs}>
-        <swiper-container
-          ref={swiperThumbsRef}
-          init={false}
-        >
-          {data.map((item: any) => {
-            return (
-              <swiper-slide key={item.name}>
-                <div
-                  style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
-                  className={styles.item}
-                >
-                  <figure
-                    style={{ backgroundImage: `url(${item.name})` }}
-                    className={styles.backgroundImage}
+      {data?.length > 1 &&
+        <div className={styles.thumbs}>
+          <swiper-container
+            ref={swiperThumbsRef}
+            init={false}
+          >
+            {data.map((item: any) => {
+              return (
+                <swiper-slide key={item.name}>
+                  <div
+                    style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
+                    className={styles.item}
                   >
-                    <Image
-                      alt={name}
-                      src={item.name}
-                      fill={true}
-                      sizes='100%'
-                    />
-                  </figure>
-                </div>
-              </swiper-slide>
-            )
-          })}
-        </swiper-container>
-      </div>
+                    <figure
+                      style={{ backgroundImage: `url(${item.name})` }}
+                      className={styles.backgroundImage}
+                    >
+                      <Image
+                        alt={name}
+                        src={item.name}
+                        fill={true}
+                        sizes='100%'
+                      />
+                    </figure>
+                  </div>
+                </swiper-slide>
+              )
+            })}
+          </swiper-container>
+        </div>
+      }
     </>
   )
 }
