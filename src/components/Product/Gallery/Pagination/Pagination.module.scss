@@ -1,0 +1,12 @@
+.wrapper {
+  margin: 15px 0;
+  font-size: 2.2rem;
+
+  @media (min-width: 790px) {
+    right: 40px;
+    bottom: 40px;
+    margin: 0;
+    position: absolute;
+    font-size: 3rem;
+  }
+}

@@ -12,10 +12,12 @@ import {
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import { IoFilterOutline } from 'react-icons/io5'
+import { FaFilter } from 'react-icons/fa6'
 import { useSearchParams } from 'next/navigation'
 
 import styles from './Filters.module.scss'
+
+import { getRandom } from '@/services/utils'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -100,6 +102,14 @@ const Filters = ({
   }
 
   useEffect(() => {
+    const selector: any = document.querySelector(`.${styles.selector}`)
+
+    if (selector) {
+      selector.style.borderRadius = `${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}%`
+    }
+  }, [])
+
+  useEffect(() => {
     if (tags.length > 0) splitTextIntoSpans()
   }, [tags])
 
@@ -152,9 +162,6 @@ const Filters = ({
         }
       </div>
       <div className={styles.selector}>
-        <div className={styles.icon}>
-          <IoFilterOutline size={26} />
-        </div>
         <select
           onChange={(e: { target: any }) => animateItems(e.target[e.target.selectedIndex].value)}
           defaultValue={filter}
@@ -173,6 +180,9 @@ const Filters = ({
               )
             })}
         </select>
+        <div className={styles.icon}>
+          <FaFilter size={18} color='#222222' />
+        </div>
       </div>
     </>
   )

@@ -61,27 +61,29 @@
 
 .selector {
   top: 15px;
-  right: 15px;
+  right: 20px;
   width: 105px;
+  padding: 5px;
   z-index: 99;
   display: flex;
   position: fixed;
   align-items: center;
   justify-content: flex-end;
+  background-color: #fff;
 
   .icon {
-    width: fit-content;
+    width: 18px;
+    height: 18px;
   }
 
   select {
     color: $textColor;
-    right: 0;
     border: none;
     position: absolute;
     font-size: 1.8rem;
     appearance: none;
     text-align: right;
-    padding-right: 35px;
+    padding-right: 25px;
     background-color: transparent;
   }
 

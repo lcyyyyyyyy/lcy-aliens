@@ -4,12 +4,14 @@
 
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { register } from 'swiper/element/bundle'
 import Image from 'next/image'
 
 import 'swiper/scss'
 import styles from './Gallery.module.scss'
+
+import Pagination from './Pagination/Pagination'
 
 import { getRandom } from '@/services/utils'
 
@@ -25,7 +27,9 @@ const Gallery = ({
   name
 }: props) => {
   const swiperRef = useRef(null)
+  const galleryRef = useRef(null)
   const swiperThumbsRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(1)
   let scrollTop = 0
 
   const handleScroll = () => {
@@ -50,6 +54,21 @@ const Gallery = ({
         swiper: swiperThumbsRef.current
       } : false,
       on: {
+        init: () => {
+          const thumbs: any = swiperThumbsRef.current
+          const gallery: any = galleryRef.current
+
+          if (gallery) gallery.style.borderRadius = `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%`
+
+          if (thumbs) {
+            const items = thumbs.querySelectorAll(`.${styles.item}`)
+
+            for (let i = 0; i < items.length; i++) {
+              const item = items[i]
+              item.style.borderRadius = `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%`
+            }
+          }
+        },
         progress: (swiper: { slides: { progress: any }[]; width: number }, progress: any) => {
           const slides = swiper.slides
           for (let i = 0; i < slides.length; i++) {
@@ -67,6 +86,9 @@ const Gallery = ({
             element.style.transition = `${transition}ms`
             element.querySelector(`.${styles.backgroundImage}`).style.transition = `${transition}ms`
           }
+        },
+        activeIndexChange: (swiper: any) => {
+          setActiveIndex(swiper.activeIndex + 1)
         }
       }
     }
@@ -93,7 +115,7 @@ const Gallery = ({
     <>
       <div className={styles.wrapper}>
         <div
-          style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
+          ref={galleryRef}
           className={styles.gallery}
         >
           <swiper-container
@@ -121,6 +143,13 @@ const Gallery = ({
             })}
           </swiper-container>
         </div>
+
+        {data?.length > 1 &&
+          <Pagination
+            total={data?.length}
+            active={activeIndex}
+          />
+        }
       </div>
 
       {data?.length > 1 &&
@@ -132,10 +161,7 @@ const Gallery = ({
             {data.map((item: any) => {
               return (
                 <swiper-slide key={item.name}>
-                  <div
-                    style={{ borderRadius: `${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 4) * 10}% ${getRandom(2, 3) * 10}%` }}
-                    className={styles.item}
-                  >
+                  <div className={styles.item}>
                     <figure
                       style={{ backgroundImage: `url(${item.name})` }}
                       className={styles.backgroundImage}
