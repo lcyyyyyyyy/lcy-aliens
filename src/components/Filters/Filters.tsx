@@ -59,6 +59,7 @@ const Filters = ({
       duration: 0.5,
       onComplete: () => {
         setFilter(filter)
+        window.scrollTo({ top: 0 })
         gsap.to('#items', {
           opacity: 1,
           duration: 0.5
@@ -93,7 +94,6 @@ const Filters = ({
     animateFontSize(`.active .${styles.title} span`, activeFontSize)
 
     const filterValue: string = filter.getAttribute('data-filter') ?? ''
-    animateItems(filterValue)
 
     const params = new URLSearchParams(searchParams.toString())
     params.set('filter', filterValue)
@@ -108,6 +108,12 @@ const Filters = ({
       selector.style.borderRadius = `${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}%`
     }
   }, [])
+
+  useEffect(() => {
+    if (tags.length > 0) {
+      animateItems(searchParams.get('filter') ?? '')
+    }
+  }, [searchParams])
 
   useEffect(() => {
     if (tags.length > 0) splitTextIntoSpans()

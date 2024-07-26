@@ -41,47 +41,48 @@ const Items = ({
       ref={container}
       className={styles.wrapper}
     >
-      {data.map((item: any) => {
-        const properties = item?.properties
-        const id = item?.id
-        const name = properties?.Name?.title[0]?.text.content
-        const files = properties?.Images?.files
-        const price = properties?.Price?.number
-        const image = files[0]?.external?.url
-        const status = properties?.Status?.status?.name
-        const discount = properties?.Discount?.number
+      {data
+        .map((item: any) => {
+          const properties = item?.properties
+          const id = item?.id
+          const name = properties?.Name?.title[0]?.text.content
+          const files = properties?.Images?.files
+          const price = properties?.Price?.number
+          const image = files[0]?.external?.url
+          const status = properties?.Status?.status?.name
+          const discount = properties?.Discount?.number
 
-        return (
-          <div
-            key={item.id}
-            className={`${styles.item}${status === 'Sold' ? ` ${styles.sold}` : ''}`}
-          >
+          return (
             <div
-              onClick={() => onClick(`/products/${id}`)}
-              className={styles.image}
+              key={item.id}
+              className={`${styles.item}${status === 'Sold' ? ` ${styles.sold}` : ''}`}
             >
-              {files.length > 0 &&
-                <Image
-                  alt={name}
-                  src={image}
-                  fill
-                  sizes='100%'
-                />
+              <div
+                onClick={() => onClick(`/products/${id}`)}
+                className={styles.image}
+              >
+                {files.length > 0 &&
+                  <Image
+                    alt={name}
+                    src={image}
+                    fill
+                    sizes='100%'
+                  />
+                }
+              </div>
+
+              {/* Name */}
+              {/* <p>{name}</p> */}
+
+              {/* Price */}
+              {status !== 'Not for Sale' &&
+                <p className={discount ? styles.sale : undefined}>
+                  {`NT${formatter.format(discount ? price * (1 - discount) : price)}`}
+                </p>
               }
             </div>
-
-            {/* Name */}
-            {/* <p>{name}</p> */}
-
-            {/* Price */}
-            {status !== 'Not for Sale' &&
-              <p className={discount ? styles.sale : undefined}>
-                {`NT${formatter.format(discount ? price * (1 - discount) : price)}`}
-              </p>
-            }
-          </div>
-        )
-      })}
+          )
+        })}
     </div>
   )
 }

@@ -22,9 +22,9 @@ interface props {
 const Content = ({
   data
 }: props) => {
-  const count = data.length
   const searchParams = useSearchParams()
   const [tags, setTags] = useState<Array<object>>([])
+  const [count, setCount] = useState<number>(0)
   const [items, setItems] = useState<Array<object>>([])
   const [filter, setFilter] = useState<string>(searchParams.get('filter') ?? '')
 
@@ -32,14 +32,16 @@ const Content = ({
   useEffect(() => {
     let tagArray: any = []
 
-    data.forEach((item: any, i) => {
-      const properties = item.properties
-      const itemTags = properties?.Tags?.multi_select
+    data
+      .filter((item: any) => { return item?.properties?.Active?.checkbox })
+      .forEach((item: any) => {
+        const properties = item.properties
+        const itemTags = properties?.Tags?.multi_select
 
-      itemTags.forEach((tag: { name: string }) => {
-        return tagArray.push(tag.name)
+        itemTags.forEach((tag: { name: string }) => {
+          return tagArray.push(tag.name)
+        })
       })
-    })
 
     const counts: any = {}
     const array: object[] = []
@@ -65,22 +67,30 @@ const Content = ({
   useEffect(() => {
     let array: object[] = []
 
-    if (filter === '') setItems(data)
-    else {
-      data.forEach((item: any, i) => {
-        const properties = item.properties
-        const itemTags = properties?.Tags?.multi_select
-        let tagNames: string[] = []
-
-        itemTags.forEach((tag: { name: string }) => {
-          return tagNames.push(tag.name.split(/\//ig)[0])
+    if (filter === '') {
+      array = data.filter((item: any) => { return item?.properties?.Active?.checkbox })
+      setCount(array.length)
+    } else {
+      data
+        .filter((item: any) => {
+          const activeArray = data.filter((item: any) => { return item?.properties?.Active?.checkbox })
+          setCount(activeArray.length)
+          return item?.properties?.Active?.checkbox
         })
+        .forEach((item: any) => {
+          const properties = item.properties
+          const itemTags = properties?.Tags?.multi_select
+          let tagNames: string[] = []
 
-        if (tagNames.includes(filter)) array.push(item)
-      })
+          itemTags.forEach((tag: { name: string }) => {
+            return tagNames.push(tag.name.split(/\//ig)[0])
+          })
 
-      setItems(array)
+          if (tagNames.includes(filter)) array.push(item)
+        })
     }
+
+    setItems(array)
   }, [data, filter])
 
   return (

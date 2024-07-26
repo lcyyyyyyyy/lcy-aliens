@@ -33,6 +33,7 @@ const Information = ({
 
   const tags = data?.Tags?.multi_select
   const name = data?.Name?.title[0]?.plain_text
+  const size = data?.Size?.rich_text[0]?.text?.content
   const links = data?.Links?.rich_text
   const description = data?.Description?.rich_text[0]?.text?.content
 
@@ -43,10 +44,6 @@ const Information = ({
   // Price
   const price = data?.Price?.number
   const discount = data?.Discount?.number
-
-  // Links
-  const linkFM = data?.FM?.url
-  const link711 = data['711']?.url
 
   useEffect(() => {
     console.log(data)
@@ -82,7 +79,7 @@ const Information = ({
           <p className={discount ? styles.original : undefined}>NT{formatter.format(price)}</p>
           {discount &&
             <>
-              <p className={styles.discount}>{100 - (discount * 100)}折</p>
+              <p className={styles.discount}>{(100 - (discount * 100)) * 0.1}折</p>
               <p className={styles.sale}>NT{formatter.format(price * (1 - discount))}</p>
             </>
           }
@@ -114,15 +111,16 @@ const Information = ({
           {links
             .filter((link: any) => { return link?.text?.link })
             .map((link: any) => {
+              const name = link?.text?.content
               return (
                 <Link
                   key={link?.text?.link?.url}
                   href={link?.text?.link?.url}
                   style={{ borderRadius: `${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}%` }}
                   target='_blank'
-                  className={`${styles.link} ${link?.text?.content === '賣貨便' ? styles.seven : link?.text?.content === '好賣+' ? styles.fm : ''}`}
+                  className={`${styles.link} ${name === '賣貨便' ? styles.seven : name === '好賣+' ? styles.fm : name === '蝦皮' ? styles.shopee : ''}`}
                 >
-                  {link?.text?.content}
+                  {name}
                 </Link>
               )
             })}
@@ -134,6 +132,7 @@ const Information = ({
           style={{ borderRadius: `${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}%` }}
           className={styles.description}
         >
+          {size && <p>{size}</p>}
           <p dangerouslySetInnerHTML={{ __html: description }} />
         </div>
       }
@@ -143,7 +142,9 @@ const Information = ({
         className={styles.note}
       >
         <p>
-          所有商品皆不接受退換貨
+          <span>*價格皆以下單賣場顯示為主</span>
+          <br />
+          <span>*所有商品皆不接受退換貨</span>
           <br />
           請詳閱商品描述
           <br />

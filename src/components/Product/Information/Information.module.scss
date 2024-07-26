@@ -122,6 +122,10 @@
         background-color: #e5001e;
       }
     }
+    
+    &.shopee {
+      background-color: #eb4e2d;
+    }
   }
 }
 
@@ -147,6 +151,10 @@
 
 .note {
   background-color: #f1d8d8;
+
+  span {
+    color: #ad0017;
+  }
 }
 
 .description {
