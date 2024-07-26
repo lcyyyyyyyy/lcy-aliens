@@ -111,7 +111,18 @@ const Filters = ({
 
   useEffect(() => {
     if (tags.length > 0) {
-      animateItems(searchParams.get('filter') ?? '')
+      const filters: any = document.querySelectorAll(`.${styles.filter}`)
+      const filterValue = searchParams.get('filter') ?? ''
+      animateItems(filterValue)
+      animateFontSize(`.active .${styles.title} span`, defaultFontSize)
+
+      filters.forEach((f: any) => f.classList.remove('active'))
+      filters.forEach((item: any) => {
+        if (item.getAttribute('data-filter') === filterValue) {
+          item.classList.add('active')
+          animateFontSize(`.active .${styles.title} span`, activeFontSize)
+        }
+      })
     }
   }, [searchParams])
 
