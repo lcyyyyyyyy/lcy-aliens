@@ -1,0 +1,14 @@
+.wrapper {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: #eb4e2d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    line-height: 0;
+  }
+}

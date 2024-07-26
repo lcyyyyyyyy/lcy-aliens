@@ -13,8 +13,6 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import Items from '@/components/Items/Items'
 import Filters from '@/components/Filters/Filters'
 
-import styles from './Content.module.scss'
-
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface props {

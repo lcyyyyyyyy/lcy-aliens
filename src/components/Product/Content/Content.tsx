@@ -23,16 +23,13 @@ const Content = ({
   }, [data])
 
   return (
+    images.length > 0 &&
     <>
-      {images.length > 0 &&
-        <>
-          <Gallery
-            data={images}
-            name={data?.Name?.title[0]?.text.content}
-          />
-          <Information data={data} />
-        </>
-      }
+      <Gallery
+        data={images}
+        name={data?.Name?.title[0]?.text.content}
+      />
+      <Information data={data} />
     </>
   )
 }

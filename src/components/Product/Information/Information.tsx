@@ -8,10 +8,13 @@ import { useRef, useEffect } from 'react'
 import { FcLike } from 'react-icons/fc'
 import { useGSAP } from '@gsap/react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import styles from './Information.module.scss'
+
+import Links from '@/components/Common/Links/Links'
 
 import { formatter, getRandom } from '@/services/utils'
 import { animatePageOut } from '@/services/animations'
@@ -112,7 +115,7 @@ const Information = ({
             .filter((link: any) => { return link?.text?.link })
             .map((link: any) => {
               return (
-                <a
+                <Link
                   key={link?.text?.link?.url}
                   href={link?.text?.link?.url}
                   style={{ borderRadius: `${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}%` }}
@@ -120,7 +123,7 @@ const Information = ({
                   className={`${styles.link} ${link?.text?.content === '賣貨便' ? styles.seven : link?.text?.content === '好賣+' ? styles.fm : ''}`}
                 >
                   {link?.text?.content}
-                </a>
+                </Link>
               )
             })}
         </div>
@@ -146,9 +149,13 @@ const Information = ({
           <br />
           下單即同意此說明
           <br />
-          有任何疑問請使用網站提供之LINE官方帳號詢問
+          有任何疑問請使用下方管道詢問
           <FcLike style={{ marginLeft: 5 }} />
         </p>
+
+        <div style={{ marginTop: '15px' }}>
+          <Links />
+        </div>
       </div>
     </div>
   )
