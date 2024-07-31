@@ -5,7 +5,6 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { FcLike } from 'react-icons/fc'
 import { useGSAP } from '@gsap/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -15,6 +14,9 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import styles from './Information.module.scss'
 
 import Links from '@/components/Common/Links/Links'
+
+import Star from '@/components/Common/Icons/Star'
+import Heart from '@/components/Common/Icons/Heart'
 
 import { formatter, getRandom } from '@/services/utils'
 import { animatePageOut } from '@/services/animations'
@@ -141,17 +143,32 @@ const Information = ({
         style={{ borderRadius: `${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}%` }}
         className={styles.note}
       >
+        <p>此網頁用意為整理多年陸續收購之收藏品</p>
         <p>
-          <span>*價格皆以下單賣場顯示為主</span>
-          <br />
-          <span>*所有商品皆不接受退換貨</span>
-          <br />
-          請詳閱商品描述
-          <br />
-          下單即同意此說明
-          <br />
+          <Star
+            size={30}
+            color='#fefe8b'
+            style={{}}
+          />
+          <span>價格皆以下單賣場顯示為主</span>
+        </p>
+        <p>
+          <span>所有商品皆不接受退換貨</span>
+          <Star
+            size={30}
+            color='#fefe8b'
+            style={{}}
+          />
+        </p>
+        <p>請詳閱商品描述</p>
+        <p>下單即同意此說明</p>
+        <p>
           有任何疑問請使用下方管道詢問
-          <FcLike style={{ marginLeft: 5 }} />
+          <Heart
+            size={30}
+            color='#f76767'
+            style={{}}
+          />
         </p>
 
         <div style={{ marginTop: '15px' }}>
