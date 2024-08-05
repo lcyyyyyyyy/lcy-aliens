@@ -9,11 +9,13 @@ import styles from './Shopee.module.scss'
 
 const Shopee = () => {
   return (
-    <div className={styles.wrapper}>
-      <Link href='https://shopee.tw/shop/3669883' target='_blank'>
-        <SiShopee size={20} color='#fff' />
-      </Link>
-    </div>
+    <Link
+      href='https://shopee.tw/shop/3669883'
+      target='_blank'
+      className={styles.wrapper}
+    >
+      <SiShopee size={20} color='#fff' />
+    </Link>
   )
 }
 

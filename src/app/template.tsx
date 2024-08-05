@@ -5,6 +5,8 @@ import { useRouter, usePathname } from 'next/navigation'
 
 import styles from './template.module.scss'
 
+import Rocket from '@/components/Common/Icons/Rocket'
+
 import { animatePageIn } from '@/services/animations'
 
 export default function Template({
@@ -24,7 +26,12 @@ export default function Template({
   return (
     <>
       <div>{children}</div>
-      <div id='transition-overlay' className={styles.overlay} />
+      <div id='transition-overlay' className={styles.overlay}>
+        <div id='loader' className={styles.loader}>
+          <Rocket size={80} style={{}} />
+          <p>送出囉～</p>
+        </div>
+      </div>
     </>
   )
 }

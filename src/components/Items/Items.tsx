@@ -4,7 +4,7 @@
 
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -24,7 +24,7 @@ const Items = ({
   const container = useRef(null)
 
   const onClick = (path: string) => {
-    animatePageOut(path, router)
+    animatePageOut(path, router, false)
   }
 
   useEffect(() => {

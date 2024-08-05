@@ -7,4 +7,19 @@
   position: fixed;
   clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
   background-color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  svg {
+    opacity: 0;
+  }
+
+  p {
+    opacity: 0;
+    font-size: 2.4rem;
+  }
 }

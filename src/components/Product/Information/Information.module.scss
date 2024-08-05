@@ -130,6 +130,7 @@
 }
 
 .note,
+.contact,
 .description {
   width: 100%;
   margin: 0 auto;
@@ -141,10 +142,6 @@
   p {
     text-align: center;
     line-height: 30px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   @media (min-width: 790px) {
@@ -152,11 +149,29 @@
   }
 }
 
+.icon {
+  display: inline-flex;
+  vertical-align: top;
+}
+
 .note {
   background-color: #ebdddd;
 
   span {
     color: #ad0017;
+  }
+}
+
+.contact {
+  background-color: #eaebdd;
+
+  .link {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

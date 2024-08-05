@@ -15,6 +15,8 @@ import styles from './Information.module.scss'
 
 import Links from '@/components/Common/Links/Links'
 
+import LOL from '@/components/Common/Icons/LOL'
+import Form from '@/components/Common/Icons/Form'
 import Star from '@/components/Common/Icons/Star'
 import Heart from '@/components/Common/Icons/Heart'
 
@@ -56,7 +58,11 @@ const Information = ({
   }, { scope: container, dependencies: [data] })
 
   const handleTagClicked = (name: string) => {
-    animatePageOut(`/tags/${(encodeURIComponent(name))}`, router)
+    animatePageOut(`/tags/${(encodeURIComponent(name))}`, router, false)
+  }
+
+  const handleFormClicked = (path: string) => {
+    animatePageOut(path, router, true)
   }
 
   return (
@@ -70,8 +76,7 @@ const Information = ({
         <p style={{
           borderRadius: `${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}% ${getRandom(1, 3) * 10}%`,
           backgroundColor: statusColor
-        }}
-        >
+        }}>
           {status?.name}
         </p>
       </div>
@@ -145,34 +150,66 @@ const Information = ({
       >
         <p>此網頁用意為整理多年陸續收購之收藏品</p>
         <p>
-          <Star
-            size={30}
-            color='#fefe8b'
-            style={{}}
-          />
+          <div className={styles.icon}>
+            <Star
+              size={30}
+              color='#fefe8b'
+              style={{}}
+            />
+          </div>
           <span>價格皆以下單賣場顯示為主</span>
         </p>
         <p>
           <span>所有商品皆不接受退換貨</span>
-          <Star
-            size={30}
-            color='#fefe8b'
-            style={{}}
-          />
+          <div className={styles.icon}>
+            <Star
+              size={30}
+              color='#fefe8b'
+              style={{}}
+            />
+          </div>
         </p>
         <p>請詳閱商品描述</p>
         <p>下單即同意此說明</p>
         <p>
           有任何疑問請使用下方管道詢問
-          <Heart
-            size={30}
-            color='#f76767'
-            style={{}}
-          />
+          <div className={styles.icon}>
+            <Heart
+              size={30}
+              color='#f76767'
+              style={{}}
+            />
+          </div>
         </p>
 
         <div style={{ marginTop: '15px' }}>
           <Links />
+        </div>
+      </div>
+
+      <div
+        style={{ borderRadius: `${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}%` }}
+        className={styles.contact}
+      >
+        <p>
+          有關網頁相關建議或疑問都可以透過填寫表單告訴我哦～
+          <div className={styles.icon}>
+            <LOL
+              size={30}
+              style={{ lineHeight: '30px' }}
+            />
+          </div>
+        </p>
+        <div className={styles.link}>
+          <Form
+            size={50}
+            color='#000'
+            style={{
+              margin: '0 auto',
+              cursor: 'pointer'
+            }}
+            onClick={() => handleFormClicked('/contact')}
+          />
         </div>
       </div>
     </div>
