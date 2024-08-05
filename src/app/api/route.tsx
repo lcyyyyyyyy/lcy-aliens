@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json()
-    const { name, email, message } = body
+    const { date, name, email, message } = body
     const notionDatabaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID_MESSAGE
     const integrationToken = process.env.NEXT_PUBLIC_NOTION_TOKEN
 
@@ -22,6 +22,11 @@ export async function POST(req: Request) {
     const data = {
       parent: { database_id: notionDatabaseId },
       properties: {
+        Date: {
+          date: {
+            start: date
+          }
+        },
         Name: { title: [{ text: { content: name } }] },
         Email: { email: email },
         Message: {

@@ -41,6 +41,7 @@ const Form = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        date: new Date().toISOString(),
         name: data?.name === '' ? '#' : data?.name,
         email: data?.email === '' ? '#' : data?.email,
         message: data?.message
@@ -61,7 +62,9 @@ const Form = () => {
   useEffect(() => {
     const wrapper: any = wrapperRef.current
     if (wrapper) {
-      if (window.innerWidth > 790) {
+        wrapper.style.backgroundColor = `rgb(${getRandom(221, 234)}, ${getRandom(221, 234)}, ${getRandom(221, 234)})`
+
+        if (window.innerWidth > 790) {
         wrapper.style.borderRadius = `${getRandom(2, 3) * 10}% ${getRandom(1, 2) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 2) * 10}%`
       } else {
         wrapper.style.borderRadius = `${getRandom(1, 2) * 10}% ${getRandom(1, 2) * 10}% ${getRandom(1, 2) * 10}% ${getRandom(1, 2) * 10}%`

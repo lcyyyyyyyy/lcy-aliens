@@ -41,9 +41,16 @@
 
   button {
     color: #fff;
+    cursor: pointer;
     border: none;
     padding: 5px 10px;
+    transition: .3s;
     background-color: #555555;
+
+    &:hover {
+      color: #555555;
+      background-color: #fff;
+    }
   }
 
   @media (min-width: 540px) {

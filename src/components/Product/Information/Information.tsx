@@ -4,12 +4,9 @@
 
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { useGSAP } from '@gsap/react'
+import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import styles from './Information.module.scss'
 
@@ -22,8 +19,6 @@ import Heart from '@/components/Common/Icons/Heart'
 
 import { formatter, getRandom } from '@/services/utils'
 import { animatePageOut } from '@/services/animations'
-
-gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface props {
   data: any
@@ -48,14 +43,6 @@ const Information = ({
   // Price
   const price = data?.Price?.number
   const discount = data?.Discount?.number
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
-  useGSAP(() => {
-
-  }, { scope: container, dependencies: [data] })
 
   const handleTagClicked = (name: string) => {
     animatePageOut(`/tags/${(encodeURIComponent(name))}`, router, false)
@@ -203,7 +190,7 @@ const Information = ({
         <div className={styles.link}>
           <Form
             size={50}
-            color='#000'
+            color='#222'
             style={{
               margin: '0 auto',
               cursor: 'pointer'
