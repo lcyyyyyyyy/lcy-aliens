@@ -2,10 +2,12 @@
  * @link https://github.com/levinunnink/html-form-to-notion
  */
 
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   try {
+    console.log(req.method);
+    
     if (req.method !== 'POST') {
       return NextResponse.json({ error: 'Method Not Allowed' }, {
         status: 405
