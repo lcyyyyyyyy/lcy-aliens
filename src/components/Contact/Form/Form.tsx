@@ -21,6 +21,7 @@ import {
 } from '@/services/animations'
 
 const Form = () => {
+  const isProd = process.env.NODE_ENV === 'production'
   const router = useRouter()
   const wrapperRef = useRef(null)
   const [loaded, setLoaded] = useState(false)
@@ -33,7 +34,7 @@ const Form = () => {
   const onSubmit = async (data: any) => {
     animateLoadingStart()
 
-    const url = '/api'
+    const url = `${isProd ? '/lcy-aliens' : ''}/api`
 
     await fetch(url, {
       method: 'POST',
@@ -50,9 +51,7 @@ const Form = () => {
       .then(response => {
         const { status }: any = response
 
-        if (status === 200) {
-          animateLoadingEnd('back', router)
-        }
+        animateLoadingEnd(status === 200 ? 'back' : 'failed', router)
       })
       .catch(error => {
         console.error('Send message error:', error)
@@ -62,9 +61,9 @@ const Form = () => {
   useEffect(() => {
     const wrapper: any = wrapperRef.current
     if (wrapper) {
-        wrapper.style.backgroundColor = `rgb(${getRandom(221, 234)}, ${getRandom(221, 234)}, ${getRandom(221, 234)})`
+      wrapper.style.backgroundColor = `rgb(${getRandom(221, 234)}, ${getRandom(221, 234)}, ${getRandom(221, 234)})`
 
-        if (window.innerWidth > 790) {
+      if (window.innerWidth > 790) {
         wrapper.style.borderRadius = `${getRandom(2, 3) * 10}% ${getRandom(1, 2) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(1, 2) * 10}%`
       } else {
         wrapper.style.borderRadius = `${getRandom(1, 2) * 10}% ${getRandom(1, 2) * 10}% ${getRandom(1, 2) * 10}% ${getRandom(1, 2) * 10}%`

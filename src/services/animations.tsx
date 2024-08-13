@@ -89,8 +89,10 @@ export const animateLoadingEnd = (
   router: AppRouterInstance
 ) => {
   const tl = gsap.timeline().pause()
-  const text: any = document.getElementById('loader')?.querySelector('p')
-  const rocket: any = document.getElementById('loader')?.querySelector('svg')
+  const burst: any = document.getElementById('icon-burst')
+  const rocket: any = document.getElementById('icon-rocket')
+  const failed: any = document.getElementById('failed')
+  const submitted: any = document.getElementById('submitted')
   const overlay = document.getElementById('transition-overlay')
 
   tlFloat
@@ -98,42 +100,55 @@ export const animateLoadingEnd = (
       repeat: 0
     })
     .to(rocket, {
-      x: '+=300',
-      y: '-=300',
+      x: path === 'failed' ? 0 : '+=300',
+      y: path === 'failed' ? 0 : '-=300',
       opacity: 0,
       rotation: 0,
-      duration: 2
+      duration: path === 'failed' ? 0.3 : 2
     })
-    // .to(rocket, {
-    //   x: -100,
-    //   y: 100
-    // })
-    .to(text, {
-      delay: -1.8,
+    .to(path === 'failed' ? burst : null,
+      path === 'failed' ? {
+        delay: -0.1,
+        opacity: 1,
+        duration: 0.1
+      } : {})
+    .to(path === 'failed' ? burst : null,
+      path === 'failed' ? {
+        delay: 0.8,
+        opacity: 0,
+        duration: 0.5
+      } : {})
+    .to(rocket, {
+      x: -100,
+      y: 100
+    })
+    .to(path === 'failed' ? failed : submitted, {
+      delay: path === 'failed' ? -0.4 : -3.4,
       opacity: 1,
       duration: 0.5
     })
-    .to(text, {
+    .to(path === 'failed' ? failed : submitted, {
+      delay: path === 'failed' ? 3 : 0,
       opacity: 0,
       duration: 0.5,
       onComplete: () => {
         tlFloat.pause()
         if (path === 'back') router.back()
-        else  if (path !== '') router.push(path, { scroll: false })
+        else if (path !== 'failed') router.push(path, { scroll: false })
         tl.resume()
       }
     })
 
-  // tl
-  //   .set(overlay, {
-  //     clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)'
-  //   })
-  //   .to(overlay, {
-  //     ease: 'power4.inOut',
-  //     clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
-  //     duration: 1,
-  //     onComplete: () => {
-  //       tlFloat.pause()
-  //     }
-  //   })
+  tl
+    .set(overlay, {
+      clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)'
+    })
+    .to(overlay, {
+      ease: 'power4.inOut',
+      clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
+      duration: 1,
+      onComplete: () => {
+        tlFloat.pause()
+      }
+    })
 }

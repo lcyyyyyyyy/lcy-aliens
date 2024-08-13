@@ -136,7 +136,7 @@ const Information = ({
         className={styles.note}
       >
         <p>此網頁用意為整理多年陸續收購之收藏品</p>
-        <p>
+        <div className={styles.text}>
           <div className={styles.icon}>
             <Star
               size={30}
@@ -145,8 +145,8 @@ const Information = ({
             />
           </div>
           <span>價格皆以下單賣場顯示為主</span>
-        </p>
-        <p>
+        </div>
+        <div className={styles.text}>
           <span>所有商品皆不接受退換貨</span>
           <div className={styles.icon}>
             <Star
@@ -155,10 +155,10 @@ const Information = ({
               style={{}}
             />
           </div>
-        </p>
+        </div>
         <p>請詳閱商品描述</p>
         <p>下單即同意此說明</p>
-        <p>
+        <div className={styles.text}>
           有任何疑問請使用下方管道詢問
           <div className={styles.icon}>
             <Heart
@@ -167,7 +167,7 @@ const Information = ({
               style={{}}
             />
           </div>
-        </p>
+        </div>
 
         <div style={{ marginTop: '15px' }}>
           <Links />
@@ -178,7 +178,7 @@ const Information = ({
         style={{ borderRadius: `${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}% ${getRandom(2, 3) * 10}% ${getRandom(2, 4) * 10}%` }}
         className={styles.contact}
       >
-        <p>
+        <div className={styles.text}>
           有關網頁相關建議或疑問都可以透過填寫表單告訴我哦～
           <div className={styles.icon}>
             <LOL
@@ -186,7 +186,7 @@ const Information = ({
               style={{ lineHeight: '30px' }}
             />
           </div>
-        </p>
+        </div>
         <div className={styles.link}>
           <Form
             size={50}

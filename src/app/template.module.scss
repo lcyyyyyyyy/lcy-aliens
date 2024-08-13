@@ -14,8 +14,15 @@
 }
 
 .loader {
-  svg {
-    opacity: 0;
+  .icon {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+
+    svg {
+      opacity: 0;
+    }
   }
 
   p {
