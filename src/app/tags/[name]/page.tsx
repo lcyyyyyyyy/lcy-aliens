@@ -14,10 +14,20 @@ const Tag = async ({
   const response: any = await notion.databases.query({
     database_id: id,
     filter: {
-      property: 'Tags',
-      multi_select: {
-        contains: decodeURIComponent(params.name)
-      }
+      and: [
+        {
+          property: 'Active',
+          checkbox: {
+            equals: true
+          }
+        },
+        {
+          property: 'Tags',
+          multi_select: {
+            contains: decodeURIComponent(params.name)
+          }
+        }
+      ]
     }
   })
   const data = response?.results
