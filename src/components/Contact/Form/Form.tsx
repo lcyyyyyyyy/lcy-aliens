@@ -34,7 +34,7 @@ const Form = () => {
   const onSubmit = async (data: any) => {
     animateLoadingStart()
 
-    const url = `${isProd ? '/lcy-aliens' : ''}/api`
+    const url = `${(isProd && (location?.host === 'lcyyyyyyyy.github.io')) ? '/lcy-aliens' : ''}/api`
 
     await fetch(url, {
       method: 'POST',

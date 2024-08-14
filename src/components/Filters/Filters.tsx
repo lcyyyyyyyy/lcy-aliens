@@ -98,7 +98,7 @@ const Filters = ({
     const params = new URLSearchParams(searchParams.toString())
     params.set('filter', filterValue)
 
-    window.history.pushState(null, '', filterValue === '' ? isProd ? '/lcy-aliens' : '/' : `?${params.toString()}`)
+    window.history.pushState(null, '', filterValue === '' ? (isProd && (location?.host === 'lcyyyyyyyy.github.io')) ? '/lcy-aliens' : '/' : `?${params.toString()}`)
   }
 
   useEffect(() => {
