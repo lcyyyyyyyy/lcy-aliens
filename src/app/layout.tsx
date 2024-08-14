@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import localFont from 'next/font/local'
+
 import Favicon from './icon.ico'
 import '../styles/default.scss'
 
@@ -23,6 +25,7 @@ export default function RootLayout({
       <body className={ChenYuluoyan.className}>
         <Suspense fallback={null}>
           {children}
+          <SpeedInsights />
         </Suspense>
       </body>
     </html>
