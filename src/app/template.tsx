@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import styles from './template.module.scss'
 
@@ -15,13 +15,12 @@ export default function Template({
 }: {
   children: React.ReactNode
 }) {
-  const router = useRouter()
   const pathname = usePathname()
 
   useEffect(() => {
-    // console.log(router);
-
-    animatePageIn()
+    document.fonts.ready.then(() => {
+      animatePageIn()
+    })
   }, [pathname])
 
   return (
